@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header>
@@ -50,6 +51,111 @@
     <footer>
         <p>© 2026 Ciencia en Alimentos</p>
     </footer>
+<script>
 
+const apiKey = "e921beff93d5ea1d3370088553880259";
+const ciudad = "Hermosillo";
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric&lang=es`)
+.then(response => response.json())
+.then(data => {
+
+    const icono = data.weather[0].icon;
+
+    document.getElementById("clima").innerHTML = `
+        <img src="https://openweathermap.org/img/wn/${icono}@2x.png" alt="Clima">
+
+        <h3>${data.main.temp}°C</h3>
+
+        <p><strong>Sensación:</strong> ${data.main.feels_like}°C</p>
+
+        <p><strong>Humedad:</strong> ${data.main.humidity}%</p>
+
+        <p><strong>Viento:</strong> ${data.wind.speed} m/s</p>
+
+        <p>${data.weather[0].description}</p>
+    `;
+})
+.catch(error => {
+    document.getElementById("clima").innerHTML =
+        "No fue posible cargar el clima.";
+});
+
+</script>
+<script>
+
+function actualizarHora(){
+
+    const ahora = new Date();
+
+    const opciones = {
+        weekday:'long',
+        year:'numeric',
+        month:'long',
+        day:'numeric'
+    };
+
+    const fecha = ahora.toLocaleDateString('es-MX', opciones);
+
+    const hora = ahora.toLocaleTimeString('es-MX');
+
+    document.getElementById('fechaHora').innerHTML =
+        `${fecha}<br><strong>${hora}</strong>`;
+}
+
+setInterval(actualizarHora,1000);
+
+actualizarHora();
+
+</script>
 </body>
-</html>
+</html><section id="clima-container">
+    <h2>🌤️ Clima Actual en Hermosillo</h2>
+    <div id="clima">
+        Cargando información del clima...
+    </div>
+</section>
+<section id="dashboard">
+
+    <h2>📊 Información en Tiempo Real</h2>
+
+    <div class="widget">
+        <h3>📅 Fecha y Hora</h3>
+        <div id="fechaHora"></div>
+    </div>
+
+    <div class="widget">
+        <h3>💵 Tipo de Cambio</h3>
+        <div id="tipoCambio">
+            Cargando...
+        </div>
+    </div>
+
+    <div class="widget">
+        <h3>🏦 CETES 28 días</h3>
+        <div id="cetes">
+            Consulta manual recomendada
+        </div>
+    </div>
+
+</section>
+<script>
+
+fetch('https://open.er-api.com/v6/latest/USD')
+.then(response => response.json())
+.then(data => {
+
+    const mxn = data.rates.MXN;
+
+    document.getElementById('tipoCambio').innerHTML =
+        `1 USD = ${mxn.toFixed(2)} MXN`;
+
+})
+.catch(() => {
+
+    document.getElementById('tipoCambio').innerHTML =
+        'No disponible';
+
+});
+
+</script>
