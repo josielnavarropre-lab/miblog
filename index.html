@@ -1,120 +1,216 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ciencia en Alimentos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciencia en Alimentos</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#333;
+}
+
+header{
+    background:#1f4e79;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+nav{
+    background:#163a5a;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:15px 20px;
+}
+
+nav a:hover{
+    background:#285c8f;
+}
+
+.hero{
+    background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+    url('https://images.unsplash.com/photo-1498837167922-ddd27525d352');
+    background-size:cover;
+    background-position:center;
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero h2{
+    font-size:3rem;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:1.2rem;
+}
+
+.buscador{
+    text-align:center;
+    margin:30px;
+}
+
+.buscador input{
+    width:80%;
+    max-width:600px;
+    padding:12px;
+    border-radius:30px;
+    border:1px solid #ccc;
+}
+
+.articulos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card h3,
+.card p{
+    padding:15px;
+}
+
+.card button{
+    margin:0 15px 15px;
+    padding:10px 20px;
+    border:none;
+    background:#1f4e79;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#clima-container,
+#dashboard,
+#noticias{
+    max-width:1000px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.widget,
+#clima,
+.noticia{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+#clima{
+    text-align:center;
+}
+
+#clima img{
+    width:90px;
+}
+
+footer{
+    background:#1f4e79;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+}
+
+.noticia a{
+    text-decoration:none;
+    font-weight:bold;
+}
+
+</style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Ciencia en Alimentos</h1>
-        <p>Investigación, innovación y tecnología alimentaria</p>
-    </header>
+<header>
+    <h1>Ciencia en Alimentos</h1>
+    <p>Investigación, Innovación y Tecnología Alimentaria</p>
+</header>
 
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#">Publicaciones</a>
-        <a href="#">Investigadores</a>
-        <a href="#">Contacto</a>
-    </nav>
+<nav>
+    <a href="#">Inicio</a>
+    <a href="#">Artículos</a>
+    <a href="#">Investigadores</a>
+    <a href="#">Contacto</a>
+</nav>
 
-    <main>
-
-        <article>
-            <h2>Efecto de los antioxidantes naturales en alimentos</h2>
-            <p><strong>Fecha:</strong> Junio 2026</p>
-            <p>
-                Resumen del estudio sobre la aplicación de antioxidantes
-                naturales para mejorar la estabilidad y calidad de productos alimenticios.
-            </p>
-            <button>Leer más</button>
-        </article>
-
-        <article>
-            <h2>Nuevas tecnologías de conservación alimentaria</h2>
-            <p><strong>Fecha:</strong> Mayo 2026</p>
-            <p>
-                Análisis de tecnologías emergentes para prolongar la vida útil
-                de alimentos manteniendo sus propiedades nutricionales.
-            </p>
-            <a href="articulos/conservacion.html">
-    <button>Leer más</button>
-</a>
-        </article>
-
-    </main>
-
-    <footer>
-        <p>© 2026 Ciencia en Alimentos</p>
-    </footer>
-<script>
-
-const apiKey = "e921beff93d5ea1d3370088553880259";
-const ciudad = "Hermosillo";
-
-fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric&lang=es`)
-.then(response => response.json())
-.then(data => {
-
-    const icono = data.weather[0].icon;
-
-    document.getElementById("clima").innerHTML = `
-        <img src="https://openweathermap.org/img/wn/${icono}@2x.png" alt="Clima">
-
-        <h3>${data.main.temp}°C</h3>
-
-        <p><strong>Sensación:</strong> ${data.main.feels_like}°C</p>
-
-        <p><strong>Humedad:</strong> ${data.main.humidity}%</p>
-
-        <p><strong>Viento:</strong> ${data.wind.speed} m/s</p>
-
-        <p>${data.weather[0].description}</p>
-    `;
-})
-.catch(error => {
-    document.getElementById("clima").innerHTML =
-        "No fue posible cargar el clima.";
-});
-
-</script>
-<script>
-
-function actualizarHora(){
-
-    const ahora = new Date();
-
-    const opciones = {
-        weekday:'long',
-        year:'numeric',
-        month:'long',
-        day:'numeric'
-    };
-
-    const fecha = ahora.toLocaleDateString('es-MX', opciones);
-
-    const hora = ahora.toLocaleTimeString('es-MX');
-
-    document.getElementById('fechaHora').innerHTML =
-        `${fecha}<br><strong>${hora}</strong>`;
-}
-
-setInterval(actualizarHora,1000);
-
-actualizarHora();
-
-</script>
-</body>
-</html><section id="clima-container">
-    <h2>🌤️ Clima Actual en Hermosillo</h2>
-    <div id="clima">
-        Cargando información del clima...
-    </div>
+<section class="hero">
+    <h2>Portal Científico Alimentario</h2>
+    <p>Las últimas tendencias, investigaciones y noticias de la industria alimentaria.</p>
 </section>
+
+<section class="buscador">
+    <input type="text" id="buscar" placeholder="Buscar artículos...">
+</section>
+
+<section class="articulos">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e">
+        <h3>Efecto de los antioxidantes naturales</h3>
+        <p>Aplicaciones para mejorar la estabilidad de productos alimenticios.</p>
+        <button>Leer más</button>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1506617420156-8e4536971650">
+        <h3>Tecnologías de conservación</h3>
+        <p>Nuevas técnicas para extender la vida útil de los alimentos.</p>
+        <a href="articulos/conservacion.html">
+            <button>Leer más</button>
+        </a>
+    </div>
+
+</section>
+
+<section id="clima-container">
+
+    <h2>🌤️ Clima Actual en Hermosillo</h2>
+
+    <div id="clima">
+        Cargando clima...
+    </div>
+
+</section>
+
 <section id="dashboard">
 
     <h2>📊 Información en Tiempo Real</h2>
@@ -125,37 +221,126 @@ actualizarHora();
     </div>
 
     <div class="widget">
-        <h3>💵 Tipo de Cambio</h3>
-        <div id="tipoCambio">
-            Cargando...
-        </div>
-    </div>
-
-    <div class="widget">
-        <h3>🏦 CETES 28 días</h3>
-        <div id="cetes">
-            Consulta manual recomendada
-        </div>
+        <h3>💵 Tipo de Cambio USD/MXN</h3>
+        <div id="tipoCambio">Cargando...</div>
     </div>
 
 </section>
+
+<section id="noticias">
+
+    <h2>📰 Noticias Científicas</h2>
+
+    <div id="feedNoticias">
+        Cargando noticias...
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Ciencia en Alimentos
+</footer>
+
 <script>
 
+/* BUSCADOR */
+
+document.getElementById("buscar").addEventListener("keyup", function(){
+
+    let filtro = this.value.toLowerCase();
+
+    document.querySelectorAll(".card").forEach(card=>{
+
+        let texto = card.innerText.toLowerCase();
+
+        card.style.display =
+        texto.includes(filtro) ? "block" : "none";
+
+    });
+
+});
+
+/* CLIMA */
+
+const weatherApiKey = "e921beff93d5ea1d3370088553880259";
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=Hermosillo&appid=${weatherApiKey}&units=metric&lang=es`)
+.then(response=>response.json())
+.then(data=>{
+
+    const icono = data.weather[0].icon;
+
+    document.getElementById("clima").innerHTML = `
+        <img src="https://openweathermap.org/img/wn/${icono}@2x.png">
+        <h3>${data.main.temp}°C</h3>
+        <p>Sensación térmica: ${data.main.feels_like}°C</p>
+        <p>Humedad: ${data.main.humidity}%</p>
+        <p>${data.weather[0].description}</p>
+    `;
+
+});
+
+/* FECHA */
+
+function actualizarHora(){
+
+    const ahora = new Date();
+
+    document.getElementById("fechaHora").innerHTML =
+    ahora.toLocaleString('es-MX');
+
+}
+
+setInterval(actualizarHora,1000);
+actualizarHora();
+
+/* TIPO DE CAMBIO */
+
 fetch('https://open.er-api.com/v6/latest/USD')
-.then(response => response.json())
-.then(data => {
+.then(response=>response.json())
+.then(data=>{
 
-    const mxn = data.rates.MXN;
+    document.getElementById("tipoCambio").innerHTML =
+    `1 USD = ${data.rates.MXN.toFixed(2)} MXN`;
 
-    document.getElementById('tipoCambio').innerHTML =
-        `1 USD = ${mxn.toFixed(2)} MXN`;
+});
+
+/* NOTICIAS */
+
+const gnewsApiKey = "fc4b01688fe48f08d09fc26584eb996c5a";
+
+fetch(`https://gnews.io/api/v4/search?q=food science&lang=es&max=5&apikey=${gnewsApiKey}`)
+.then(response=>response.json())
+.then(data=>{
+
+    let html = "";
+
+    data.articles.forEach(noticia=>{
+
+        html += `
+        <div class="noticia">
+            <h3>${noticia.title}</h3>
+            <p>${noticia.description || ''}</p>
+            <a href="${noticia.url}" target="_blank">
+                Leer noticia completa →
+            </a>
+        </div>
+        `;
+
+    });
+
+    document.getElementById("feedNoticias").innerHTML = html;
 
 })
-.catch(() => {
+.catch(()=>{
 
-    document.getElementById('tipoCambio').innerHTML =
-        'No disponible';
+    document.getElementById("feedNoticias").innerHTML =
+    "No fue posible cargar las noticias.";
 
 });
 
 </script>
+
+</body>
+</html>
+```
